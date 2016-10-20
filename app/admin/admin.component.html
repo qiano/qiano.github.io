@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" >Mobile IVD Data Platform</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+			<ul class="nav navbar-nav">
+				<li class="active" routerLinkActive="active"><a routerLink="query">Data Query</a></li>
+				<li routerLinkActive="active"> <a routerLink="qrcode">QrCode Creater</a></li>
+			</ul>
+			<p class="navbar-text navbar-right" style="margin-right:0px;">Signed in as {{username}}<a (click)="auth.LogOut()" class="navbar-link"> [Logout] </a></p>
+		</div>
+	</div>
+</nav>
+<div style="margin-top:60px;padding:10px;">
+	<router-outlet></router-outlet>
+</div>

@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<!--<base href="#" />-->
+	<script>document.write('<base href="' + document.location + '#" />');</script>
+	<title>Mobile IVD Data Platform</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="icon" type="image/png" href="app/assets/i/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="app/assets/i/app-icon72x72@2x.png">
+	<style>
+		form {
+			margin: 0;
+		}
+	</style>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+	<!-- 1. Load libraries -->
+	<!-- Polyfill(s) for older browsers -->
+	<script src="node_modules/core-js/client/shim.min.js"></script>
+	<script src="node_modules/zone.js/dist/zone.js"></script>
+	<script src="node_modules/reflect-metadata/Reflect.js"></script>
+	<script src="node_modules/systemjs/dist/system.src.js"></script>
+	<!-- 2. Configure SystemJS -->
+	<script src="systemjs.config.js"></script>
+	<script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+	<style>
+		ul.pagination{
+			margin-top:0px;
+		}
+	</style>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+	<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+	<my-app>Loading...</my-app>
+</body>
+
+</html>

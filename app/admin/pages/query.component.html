@@ -1,0 +1,87 @@
+<table class="table table-striped table-sm table-bordered">
+	<thead class="thead-default thead-inverse">
+		<tr>
+			<th style="padding:5px;" *ngFor="let col of columns" [style.width]="col.width">
+				<div>
+					<a *ngIf="!col.disableSort" (click)="clickCol(col)" class="btn btn-default btn-link">{{col.title}} 
+              			<span class="glyphicon"  [class.glyphicon-arrow-up]="col.sort=='asc'" [class.glyphicon-arrow-down]="col.sort=='desc'"></span> 
+                	</a>
+					<a *ngIf="col.disableSort"  class="btn btn-default btn-link">{{col.title}}</a>
+
+					<input *ngIf="col.name!='datetime'" [disabled]="col.disableFilter" (change)="filterChanged(col,$event)" style="width:100%;font-size:13px;font-weight:normal;"
+						type="text" [(ngModel)]="col.filterKey" placeholder="{{col.filterHoler?col.filterHoler:''}}" />
+
+					<div *ngIf="col.name=='datetime'" style="position:relative;margin-top:-10px;">
+						<div class="input-group">
+							<input type="button" (change)="filterChanged(col,$event)" [(ngModel)]="startDate" style="height:20px;width:100%;padding-top:1px;" class="btn btn-sm btn-default btn-secondary "
+								(click)="showsDatePicker(true);" />
+							<span class="input-group-btn">
+        					<button class="btn  btn-default" type="button" (click)="clearsDateTime()" style="height:20px;padding-left: 4px;padding-right: 4px;">
+								<span class="glyphicon glyphicon-refresh" style="margin-top:-4px;" aria-hidden="true"></span>
+							</button>
+							</span>
+						</div>
+						<div [class.hidden]="!issDatePickerShow" style="display:inline-block; min-height:290px;position: absolute;left: -204px;z-index:100;">
+							<datepicker [(ngModel)]="sdt" [minDate]="minDate" [showWeeks]="true"></datepicker>
+						</div>
+					</div>
+
+					<div *ngIf="col.name=='datetime'" style="position:relative;">
+						<div class="input-group">
+							<input type="button" (change)="filterChanged(col,$event)" [(ngModel)]="endDate" style="height:20px;width:100%;padding-top:1px;" class="btn btn-sm btn-default btn-secondary "
+								(click)="showeDatePicker(true);" />
+							<span class="input-group-btn">
+        					<button class="btn  btn-default" type="button" (click)="cleareDateTime()" style="height:20px;padding-left: 4px;padding-right: 4px;">
+								<span class="glyphicon glyphicon-refresh" style="margin-top:-4px;" aria-hidden="true"></span>
+							</button>
+							</span>
+						</div>
+						<div [class.hidden]="!iseDatePickerShow" style="display:inline-block; min-height:290px;position: absolute;left: -204px;">
+							<datepicker [(ngModel)]="edt" [minDate]="minDate" [showWeeks]="true"></datepicker>
+						</div>
+					</div>
+				</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody style="font-size:14px;">
+		<tr *ngFor="let record of data">
+			<td>{{record.Id}}</td>
+			<td>{{record.PatientName}}</td>
+			<td>{{record.PatientNo}}</td>
+			<td>{{record.Project}}</td>
+			<td style="position:relative;">
+				<img style="position: absolute;top: -32px;left: 45px;width:20px;height:100px;-webkit-transform:rotate(270deg);" src="{{host+record.AreaPath}}"
+				/>
+				<button type="button" class="btn btn-sm btn-default" style="margin-left:100px;padding:4px;" (click)="showPhotoUrl=host+record.PhotoPath;lgModal.show()">
+  <span class="glyphicon glyphicon-camera" style="margin-top:-2px;" aria-hidden="true"></span>
+</button>
+			</td>
+			<td>{{record.Vendor}}</td>
+			<td>{{record.LotNo}}</td>
+			<td>{{record.Result}}</td>
+			<td>{{record.Location}}</td>
+			<td>{{record.Operator}}</td>
+			<td>{{record.DateTime}}</td>
+		</tr>
+	</tbody>
+</table>
+<pagination style="margin-top:0px;" [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm"
+	[itemsPerPage]="itemsPerPage" [boundaryLinks]="true" [rotate]="true" (pageChanged)="pageChanged($event)" (numPages)="numPages = $event"></pagination>
+
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				<h4 class="modal-title">View Photo</h4>
+			</div>
+			<div class="modal-body">
+				<img style="width:100%;margin:0 auto;" src="{{showPhotoUrl}}" />
+			</div>
+		</div>
+	</div>
+</div>
